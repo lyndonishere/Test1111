@@ -9,6 +9,9 @@ VALB = 0
 opSelect = 0
 finalAns = 0.0
 finalAnsStr = " "
+choiceCONTINUE = 0
+CHOICE = 0
+
 
 rl.question('What operation do you select? :\nSyntax will be A(opr)B= Answer\n 1. Addition\n 2. Subtraction\n 3. Multiplication\n 4. Division\n ' + 
             `5. Division Remainder\n 6. A to the Power of B\n`, function (name) {
@@ -60,6 +63,7 @@ rl.question('What operation do you select? :\nSyntax will be A(opr)B= Answer\n 1
 
 
 rl.on('close', function () {
+    
     if (opSelect == (4 || 5) && VALB == 0){
         console.log(`You tried to divide by 0 and the code will now terminate`)
         process.exit(0);
@@ -67,7 +71,13 @@ rl.on('close', function () {
         console.log(`You selected an incorrect operation and the code will now terminate`)
         process.exit(0);
     }else{
+        
   console.log(`Your final answer is = ` + finalAnsStr)
   process.exit(0);
     }
 });
+
+rl.question("Do you wish to continue?: Y/N?", function (CHOICE){
+    choiceCONTINUE =(parseInt(CHOICE))
+    console.log("answer" + CHOICE)
+})

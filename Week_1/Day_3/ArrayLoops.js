@@ -38,3 +38,18 @@ for(x = 0; x < 4; x++){
 // console.log(cardDECK[0])
 // console.log(cardDECK[0][0])
 // console.log(cardDECK[0].toString())
+
+
+
+
+newARRAY = [[],[]]
+newARRAY[0].push(1)
+newARRAY[0].push(2)
+newARRAY[1].push(3)
+newARRAY[1].push(4)
+console.log(newARRAY)
+newARRAY[0].push(1)
+newARRAY[0].push(2)
+newARRAY[1].push(3)
+newARRAY[1].push(4)
+console.log(newARRAY)
