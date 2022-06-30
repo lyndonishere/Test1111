@@ -1,0 +1,16 @@
+Tester Acceptance Criteria
+
+
+FEATURE: Testers should be able to login to access their homepage
+SCENARIO: As a tester I want to sign in so I can view my custom homepage
+
+GIVEN   the tester is on the login page
+WHEN    the tester enters his username
+WHEN    the tester enters his password
+WHEN    the tester clicks login button
+THEN    the tester should be logged into the tester home page
+----------------------------------------------------------------------------
+
+
+FEATURE:
+SCENARIO:

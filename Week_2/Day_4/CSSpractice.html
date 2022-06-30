@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>CSS Test Page</title>
+
+    <!-- -->
+    <style>
+        /*This will apply some formatting to all <p> paragraph elements*/
+        p{
+        text-align: center;
+        border: solid 3px black;
+        }
+        /*This creates premade styling ID's headerOne and headerTwo*/
+        #headerOne{
+            text-align: center;
+            border: solid 3px green;
+        }        
+        #headerTwo{
+            text-align: center;
+            border: dotted 5px blue;
+        }
+    </style>
+    <link rel="stylesheet" href="css-externalcall.css">
+</head>
+<body>
+    <h2>This is a plain text header of h2</h2>
+    <h2 style="text-align:center ;">This is a plain text header of h2 with center alignment</h2>
+
+    <p style="color: crimson;">This is a centered paragraph element with 'Crimson' text color</p>
+    <p style="text-align: left; color: crimson;">This is a centered paragraph element with 'Crimson' text color, that was overwritten to left alignment</p><br>
+    <p style="color:darkgreen; border: dotted 5px red;">The FitnessGram™ Pacer Test is a multistage aerobic capacity test that progressively gets more difficult as it continues. The 20 meter pacer test will begin in 30 seconds. <br>
+        Line up at the start. The running speed starts slowly, but gets faster each minute after you hear this signal. <br>
+        [beep] A single lap should be completed each time you hear this sound. [ding] Remember to run in a straight line, and run as long as possible. <br>
+        The second time you fail to complete a lap before the sound, your test is over. The test will begin on the word start. On your mark, get ready, start.<br>
+    </p>
+
+    <h2 id="headerOne">This is headerOne</h2>
+    <h2 id="headerTwo">This is headerTwo</h2><br>
+
+    <h2 class="classOne">This is headerOne</h2>
+    <h2 class="classTwo">This is headerTwo</h2><br>
+
+    <div id="headerOne">
+        helllllllloooooooooooooooooooooooooo
+    </div>
+    
+</body>
+</html>

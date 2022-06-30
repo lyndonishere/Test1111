@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Document</title>
+</head>
+<body>
+    <h2>This is my pokedeck</h2>
+    <h3>Search below via pokemon ID number</h3>
+    <input type="number" id="pokeId" min="1" max="151">
+    <button id="searchButton">Click to Search</button><br><br>
+
+    <h3 id="pokeName"></h3>
+    <h3 id="pokeID"></h3>
+    <div id="spritesContainer"></div>
+
+    <h4>This pokemon's Type(s) are:</h4>
+    <ul id="typeList"></ul>
+    <br>
+    <h4>This Pokemon's moves include:</h4>
+    <ul id="moveList"></ul>
+
+    
+</body>
+<script>
+
+    const pokeHeader = document.getElementById('pokeName')
+    const spritesContainer = document.getElementById('spritesContainer')
+    const typeList = document.getElementById('typeList')
+    const moveList = document.getElementById('moveList')
+    const pokeID = document.getElementById('pokeID')
+    const pokeId = document.getElementById('pokeId')
+    const searchButton = document.getElementById('searchButton')
+
+
+    //A function must be created to pull information from an API
+    //we need to use async and await keywords
+    async function getpokeinfo(){
+        let httpResponse = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokeId.value}`)
+        console.log(httpResponse)
+
+        if(httpResponse.status === 200){
+
+            pokeHeader.textContent = ""
+            spritesContainer.innerHTML = ""
+            typeList.textContent = ""
+            moveList.textContent = ""
+
+
+            let responseBody = await httpResponse.json()
+            console.log(responseBody)
+            pokeHeader.textContent = (responseBody.name)
+            pokeID.textContent = ('Poke ID: '+ responseBody.id)
+
+            for(let key in responseBody.sprites){
+                if(responseBody.sprites[key] && key != 'versions' && key != 'other'){
+
+                    let img = document.createElement('img')
+                    img.src = responseBody.sprites[key]
+                    img.alt = "img not found"
+                    spritesContainer.appendChild(img)
+                    }
+            }
+
+            for(let object of responseBody.types){
+                let li = document.createElement('li')
+                li.textContent = object.type.name
+                typeList.appendChild(li)
+
+            }
+
+            for(let object of responseBody.moves){
+                let li = document.createElement('li')
+                li.textContent = object.move.name
+                moveList.appendChild(li)
+            }
+
+            
+
+
+
+
+            // for(let key in responseBody.sprites.other){
+            //     console.log(key)
+            //     let img = document.createElement('img')
+            //     img.src = responseBody.sprites.other[key]
+            //     img.alt = "img not found"
+            //     spritesContainer.appendChild(img)
+            // }
+            
+
+
+            
+        }else{
+            console.log('no no, bad input')
+        }
+    }
+
+    searchButton.addEventListener("click",getpokeinfo)
+</script>
+</html>

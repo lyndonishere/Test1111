@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Document</title>
+    <h2>This is Page One</h2>
+</head>
+<body>
+    <button onclick="transferToPageTwo()">Click me to go to Page Two</button><br><br>
+    <label for="number">Please Enter a number</label>
+    <input type="number" id="number">
+    <br><br>
+    <label for="sessionNum">Please Enter a number for session storage</label>
+    <input type="number" id="sessionNum">
+
+</body>
+<script>
+    const input = document.getElementById('number')
+    const sessionInput = document.getElementById('sessionNum')
+
+    function transferToPageTwo(){
+        localStorage.setItem('number', input.value)
+        sessionStorage.setItem('sessionNum',sessionInput.value)
+        window.location.href = "pageTwo.html"
+    }
+</script>
+</html>

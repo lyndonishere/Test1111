@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Document</title>
+    <h2>This is Page Two</h2>
+</head>
+<body>
+    <button onclick="transferToPageOne()">Click me to go to Page One</button>
+    <p id="result">Result will go here</p>
+    <p id="sessionInfo"></p>
+</body>
+<script>
+    console.log(localStorage.getItem('number'))
+
+    function transferToPageOne(){
+        window.location.href = "pageOne.html"
+    }
+    const result = document.getElementById('result')
+    const sessionInfo = document.getElementById('sessionInfo')
+
+    result.textContent = `The number you entered is ${localStorage.getItem('number')}`
+    sessionInfo.textContent = `The number you set in session storage on page one ${sessionStorage.getItem('sessionNum')}`
+
+</script>
+</html>

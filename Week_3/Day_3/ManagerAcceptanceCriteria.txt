@@ -1,0 +1,32 @@
+Manager Acceptance Criteria
+
+
+FEATURE: Managers should be able to login to access their homepage
+SCENARIO: As a manager I want to sign in so I can view my custom homepage
+
+GIVEN   the manager is on the login page
+WHEN    the manager enters his username
+WHEN    the manager enters his password
+WHEN    the manager clicks login button
+THEN    the manager should be logged into the manager home page
+----------------------------------------------------------------------------
+
+
+FEATURE: Managers should be able to created defects for assignment
+SCENARIO: As a manager I want to create defects with a given name for assignment
+
+GIVEN   the manager is on the manager homepage
+WHEN    the manager creates a defect
+WHEN    the manager gives a name to the defect
+THEN    the manager should have a named defect for testing assignment
+----------------------------------------------------------------------------
+
+
+FEATURE: Managers should be able to assign defects to chosen testers
+SCENARIO: As a manager I want to be able to select a tester and assign them a defect
+
+GIVEN   the manager is on the manager homepage and has created a named defect
+WHEN    the manager selects a tester for the defect
+WHEN    the manager clicks the assign button
+THEN    the manager should have assigned the defect to the selected tester
+----------------------------------------------------------------------------

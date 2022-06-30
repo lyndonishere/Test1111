@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Document</title>
+
+</head>
+<body>
+    <h1 onmouseover="alert('GET YOUR DAMN CURSOR OFF MY FACE')">DONT MOUSE OVER HERE</h1>
+    <button onclick="alert('HELP HELP HELP HELP HELP')">Click Me To Peep The Horror</button>
+
+    <p onmouseover="this.style.color='red'" onmouseleave="this.style.color='black'">The FitnessGram™ Pacer Test is a multistage aerobic capacity test that progressively gets more difficult as it continues. The 20 meter pacer test will begin in 30 seconds. <br>
+        Line up at the start. The running speed starts slowly, but gets faster each minute after you hear this signal. <br>
+        [beep] A single lap should be completed each time you hear this sound. [ding] Remember to run in a straight line, and run as long as possible. <br>
+        The second time you fail to complete a lap before the sound, your test is over. The test will begin on the word start. On your mark, get ready, start.<br>
+    </p>
+    <br>
+
+    <p id="paragraphTEST">
+        This paragraph will be manipulated by code in the script section
+    </p>
+
+    <button>1</button>
+    <button>2</button>
+    <button>3</button><br>
+    <button>4</button>
+    <button>5</button>
+    <button>6</button><br>
+    <button>7</button>
+    <button>8</button>
+    <button>9</button><br>
+    <button>0</button><br>
+
+    <h2 class="headers">This is Header One</h2>
+    <h2 class="headers">This is Header Two</h2>
+    <h2 class="headers">This is Header Three</h2>
+    <h2 class="headers">This is Header Four</h2>
+</body>
+<script>
+    
+
+    const paragraph = document.getElementById('paragraphTEST')
+    console.log(paragraphTEST)
+
+    function mouseMovesOver(){
+        paragraph.style.color = "purple"
+    }
+
+    function mouseMovesOff(){
+        paragraph.style.color = "blue"
+    }
+
+    paragraph.addEventListener("mouseover", mouseMovesOver)
+    paragraph.addEventListener("mouseleave", mouseMovesOff)
+
+    let h2Elements = document.getElementsByClassName('headers')
+    console.log(h2Elements)
+
+    for(let header of h2Elements){
+        header.style.color = "purple"
+    }
+</script>
+</html>

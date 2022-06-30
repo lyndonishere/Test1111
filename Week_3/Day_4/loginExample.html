@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Login Page</title>
+</head>
+<body>
+    <input type="text" id="userName" placeholder="Username"><br>
+    <input type="password" id="password" placeholder="Password"><br>
+    <button onclick="login()">Login</button>
+    
+</body>
+<script>
+
+const usernameInput = document.getElementById('userName')
+const passwordInput = document.getElementById('password')
+
+const personOne = {
+    username:'personOne',
+    role:'Landing One',
+    fullName:'Maximillion the 4th'
+}
+
+const personTwo = {
+    username:'personTwo',
+    role:'Landing Two',
+    fullName:'Percius the 69th'
+}
+
+const personThree = {
+    username:'personThree',
+    role:'Landing Three',
+    fullName:'Dinosaur Dude'
+}
+
+function login(){
+    let username = usernameInput.value;
+    let password = passwordInput.value;
+    let responsebody;
+
+    if(username === 'personOne' && password === 'password'){
+        responsebody = personOne
+    }else if(username === 'personTwo' && password === 'password'){
+        responsebody = personTwo
+    }else if(username === 'personThree' && password === 'password'){
+        responsebody = personThree
+    }else{
+        alert('Bad Login')
+    }
+
+    if(responsebody.role === 'Landing One'){
+        window.location.href ='landingOne.html'
+    }else if(responsebody.role === 'Landing Two'){
+        window.location.href='landingTwo.html'
+    }else if(responsebody.role === 'Landing Three'){
+        window.location.href='landingThree.html'
+    }else{
+        alert('Bad Redirect')
+    }
+
+}
+
+</script>
+</html>

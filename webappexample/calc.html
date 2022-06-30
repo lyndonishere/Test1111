@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Document</title>
+</head>
+<body>
+    <h1>This is an attempt at the calculator</h1>
+
+    <!--Button elements for use ineraction-->
+    <table>
+        <thead>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    <button id="opbutton1">+</button><br>
+                    <button id="opbutton2">-</button><br>
+                    <button id="opbutton3">*</button><br>
+                    <button id="opbutton4">/</button>
+                </td>
+                <td>
+
+                </td>
+                <td>
+                    <button>1</button>
+                    <button>2</button>
+                    <button>3</button><br>
+                    <button>4</button>
+                    <button>5</button>
+                    <button>6</button><br>
+                    <button>7</button>
+                    <button>8</button>
+                    <button>9</button><br>
+                    <button>0</button><br>
+                </td>
+                <td id="stringOUTPUT">
+                    ""
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <input id="userinputone", type="number"><br>
+    <input id="userinputtwo", type="number"><br>
+    <button id="checkbutton">Check</button>
+
+</body>
+<script>
+    const getNUMone = document.getElementById('userinputone')
+    const getNUMtwo = document.getElementById('userinputtwo')
+    const checkNUM = document.getElementById('checkbutton')
+    
+    const opbutton1 = document.getElementById('opbutton1')
+    const opbutton2 = document.getElementById('opbutton2')
+    const opbutton3 = document.getElementById('opbutton3')
+    const opbutton4 = document.getElementById('opbutton4')
+
+    const stringOUTPUT = document.getElementById('stringOUTPUT')
+
+    var opselect = 0
+    
+    checkNUM.addEventListener('click',calculateanswer)
+
+    // for (var i = 0; i < opbutton.length; i++) {
+    // opbutton[i].addEventListener('click',operationSelection);
+    // }
+    opbutton1.addEventListener('click',operationSelection(1))
+    opbutton2.addEventListener('click',operationSelection(2))
+    opbutton3.addEventListener('click',operationSelection(3))
+    opbutton4.addEventListener('click',operationSelection(4))
+
+    function operationSelection(x){
+        opSelect = x
+        console.log(opSelect)
+    }    
+    
+
+
+    function calculateanswer(){
+        console.log(getNUMone.value)
+        console.log(getNUMtwo.value)
+
+        A = getNUMone.value
+        B = getNUMtwo.value
+        C = parseInt(A)+parseInt(B)
+        D = (A + ' [OPERATOR] ' + B +' = ' + C.toString())
+        console.log(D)
+
+        stringOUTPUT.textContent = D
+
+        
+    }
+     
+</script>
+</html>
