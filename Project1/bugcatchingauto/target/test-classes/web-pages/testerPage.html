@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Tester Page</title>
+    <style>
+        table.tableFormat{
+        border: 3px solid black;
+        width: 100%;
+        border-collapse: collapse;
+        }
+        table.tableFormat th,table.tableFormat td{
+            border: 3px solid black;
+        }
+    </style>
+</head>
+<body onload="setDefectList()">
+    <h1 id="welcomesplash"></h1>
+    <h4>Tester Access</h4>
+    <table class="tableFormat">
+        <thead>
+            <th>
+                DEFECTS PENDING
+            </th>
+            <th>
+                DEFECTS DECLINED
+            </th>
+            <th>
+                DEFECTS ACCEPTED
+            </th>
+        </thead>
+        <tbody>
+            <td>
+                <select name="defectSelect" id="defectSelect"></select>
+                <button onclick="selectDefect(1)" id="selectDefect">Pull Pending Defect Information</button>
+            </td>
+            <td>
+                <select name="defectDeclined" id="defectDeclined"></select>
+                <button onclick="selectDefect(2)" id="declinedDefect">Pull Declined Defect Information</button>
+            </td>
+            <td>
+                <select name="defectAccepted" id="defectAccepted"></select>
+                <button onclick="selectDefect(3)" id="acceptedDefect">Pull Accepted Defect Information</button>
+            </td>
+        </tbody>
+    </table>
+    <br><br>
+
+    This is where existing defect info will be displayed
+    <table name= "requestDefectTable" class="tableFormat">
+        <thead>
+            <tr>
+                <th>Defect Description</th>
+                <th>Defect Steps for Reproduction</th>
+                <th>Current Defect</th>
+                <th>Update Defect Status (If Accepted)</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    <textarea name="defectDescPull" id="defectDescPull" cols="50" rows="15" style="text-indent: 0px;"></textarea> 
+                </td>
+                <td>
+                    <textarea name="stepsDescPull" id="stepsDescPull" cols="50" rows="15" style="text-indent: 0px;"></textarea> 
+                </td>
+                <td>
+                    <p id="defectID"></p>
+                    <p id="currentlyAssigned"></p>
+                    <p id="dateReported"></p>
+                    <p id="priorityStatus"></p>
+                    <p id="severityStatus"></p>
+                    <p id="pendingStatus"></p>
+                </td>
+                <td>
+                    If accepted, select defect status update: <br>
+                    
+                    
+                    <br>
+                    <button id = "Rejected Button" onclick="updateDefect('Rejected')">Invalid Bug/Rejected</button><br>
+                    <button id = "Fixed Button" onclick="updateDefect('Fixed')">Defect Fixed</button><br>
+                    <button id = "Shelved Button" onclick="updateDefect('Shelved')">Defect Shelved/Unable to Fix</button><br>
+                    <button id = "Pending Button" onclick="updateDefect('Pending')">Pending/Accidental Acceptance</button><br>
+                    <br>
+                    
+
+
+                </td>
+            </tr>
+            <tr>
+                
+            </tr>
+        </tbody>
+    </table>
+    <button id = "acceptButton" onclick="acceptDefect()" style="font-size: 20px;">Accept Defect</button>
+    <button id= "declineButton" onclick="declineDefect()" style="font-size: 20px;">Decline Defect</button>
+    <br>
+    <br>
+
+</body>
+<script>
+    welcomesplash.textContent = `Welcome to your Homepage, ${sessionStorage.getItem('name')}`
+    
+    currentUsername = ''
+    currentDefect = 0
+    updateStatus = {}
+    buttonSelection = 0
+    async function setTesterList(){
+        
+        let employeeResponse = await fetch("https://bugcatcher.coe.revaturelabs.com/16/employees")
+        let employeResponseBody = await employeeResponse.json()
+        for( let object of employeResponseBody){
+            
+            if(`${object.fname} ${object.lname}` == sessionStorage.getItem('name')){
+                currentUsername = object.username
+                console.log(currentUsername)
+            }else{
+                null
+            }
+        }
+
+        
+    }
+    setTesterList()
+
+    async function setDefectList(){
+        document.getElementById("defectSelect").innerHTML = ''
+        document.getElementById("defectDeclined").innerHTML = ''
+        document.getElementById("defectAccepted").innerHTML = ''
+
+        let defectResponse = await fetch("https://bugcatcher.coe.revaturelabs.com/16/defects")
+        let defectResponseBody = await defectResponse.json()
+
+        for(let object of defectResponseBody){
+            if(currentUsername == object.assignedTo){
+                // let x = document.getElementById("defectSelect");
+                // let defectOption = document.createElement("option");
+                // defectOption.text = `${object.defectId}`;
+                // x.add(defectOption, x[0])
+                if(object.status == 'Pending'){
+                    let x = document.getElementById("defectSelect");
+                    let defectOption = document.createElement("option");
+                    defectOption.text = `${object.defectId}`;
+                    defectOption.id = `pending`;
+                    x.appendChild(defectOption)
+                    // console.log(object)
+                }else if(object.status == "Declined"){
+                    let x = document.getElementById("defectDeclined");
+                    let defectOption = document.createElement("option");
+                    defectOption.text = `${object.defectId}`;
+                    defectOption.id = `declined`;
+                    x.appendChild(defectOption)
+                }else{
+                    let x = document.getElementById("defectAccepted");
+                    let defectOption = document.createElement("option");
+                    defectOption.text = `${object.defectId}`;
+                    defectOption.id = `accepted`;
+                    x.appendChild(defectOption)
+                }
+            }else{
+                null
+            }
+        }
+        
+    }
+
+    async function selectDefect(y){
+        buttonSelection = y
+        let defectResponse = await fetch("https://bugcatcher.coe.revaturelabs.com/16/defects")
+        let defectResponseBody = await defectResponse.json()
+
+        let employeeResponse = await fetch("https://bugcatcher.coe.revaturelabs.com/16/employees")
+        let employeResponseBody = await employeeResponse.json()
+        a = ""
+        if(y == 1){
+            a = defectSelect[defectSelect.selectedIndex].value
+        }else if(y == 2){
+            a = defectDeclined[defectDeclined.selectedIndex].value
+        }else if(y == 3){
+            a = defectAccepted[defectAccepted.selectedIndex].value
+        }else{
+
+        }
+        currentDefect = a
+
+        for(let object of defectResponseBody){
+            if(object.defectId == a){
+                console.log(`You have pulled defect ID: ${a}`)
+                defectDescPull.value = object.desc
+                stepsDescPull.value = object.stepsToReproduce
+                defectID.textContent = `Defect ID Number: ${object.defectId}`
+                dateReported.textContent = `Date Reported (Year/Month/Day): ${object.dateReported}`
+                priorityStatus.textContent = `Priority Status: ${object.priority}`
+                severityStatus.textContent = `Severity Status: ${object.severity}`
+                pendingStatus.textContent = `Work Status: ${object.status}`
+                for(let dataset of employeResponseBody){
+                    if(object.assignedTo === dataset.username){
+                        currentlyAssigned.textContent = `Currently Assigned: ${dataset.fname} ${dataset.lname}`
+                    }else{
+                        null
+                    }
+                }
+            }else{
+                null
+            }
+        }
+        
+    }
+
+    async function clearFields(){
+
+                defectDescPull.value = ""
+                stepsDescPull.value = ""
+                defectID.textContent = `Defect ID Number:`
+                currentlyAssigned.textContent = `Currently Assigned:`
+                dateReported.textContent = `Date Reported (Year/Month/Day):`
+                priorityStatus.textContent = `Priority Status:`
+                severityStatus.textContent = `Severity Status:`
+                pendingStatus.textContent = `Work Status:`
+    }
+
+    async function acceptDefect(){
+        updateStatus =
+        {
+            "status": `Accepted`
+        }
+        updateDefectJSON = JSON.stringify(updateStatus)
+
+        let config = 
+        {
+            method:"PATCH", // method is a reference to the kind of request you are making (the verb): GET is the default
+            headers:{'Content-Type':"application/json"}, // some APIs will return an error message without this value included
+            body: updateDefectJSON
+        }
+        let updateDefectResponse = await fetch(`https://bugcatcher.coe.revaturelabs.com/16/defects/${currentDefect}`, config)
+        if(updateDefectResponse.status === 204){
+            alert(`You Accepted the Current Defect`)
+        }else{
+            null
+        }
+        selectDefect()
+        setDefectList()
+        clearFields()
+    }
+
+    async function declineDefect(){
+        updateStatus =
+        {
+            "status": "Declined"
+        }
+        updateDefectJSON = JSON.stringify(updateStatus)
+        
+        let config = 
+        {
+            method:"PATCH", // method is a reference to the kind of request you are making (the verb): GET is the default
+            headers:{'Content-Type':"application/json"}, // some APIs will return an error message without this value included
+            body: updateDefectJSON
+        }
+        let updateDefectResponse = await fetch(`https://bugcatcher.coe.revaturelabs.com/16/defects/${currentDefect}`, config)
+        if(updateDefectResponse.status === 204){
+            alert(`You Declined the Current Defect`)
+        }else{
+            null
+        }
+        selectDefect()
+        setDefectList()
+        clearFields()
+    }
+
+    async function updateDefect(stringINPUT){
+        // z = acceptedAction[acceptedAction.selectedIndex].value
+        // console.log(z)
+        updateStatus ={"status": stringINPUT}
+        updateDefectJSON = JSON.stringify(updateStatus)
+
+        let config = 
+        {
+            method:"PATCH", // method is a reference to the kind of request you are making (the verb): GET is the default
+            headers:{'Content-Type':"application/json"}, // some APIs will return an error message without this value included
+            body: updateDefectJSON
+        }
+        let updateDefectResponse = await fetch(`https://bugcatcher.coe.revaturelabs.com/16/defects/${currentDefect}`, config)
+        
+        selectDefect()
+        setDefectList()
+        clearFields()
+        alert(`You ${stringINPUT} the Current Defect`)
+    }
+
+    
+</script>
+</html>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Login Page</title>
+</head>
+<body>
+    <input type="text" id="username" placeholder="Username"><br>
+    <input type="password" id="password" placeholder="Password"><br>
+    <button onclick="login()">Login</button>
+    
+</body>
+<script>
+
+async function login(){
+    let loginInfo = {
+        username: document.getElementById('username').value,
+        password: document.getElementById('password').value
+    }
+
+    let loginJSON = JSON.stringify(loginInfo)
+    console.log(loginJSON)
+    let config = {
+    method:"PATCH", // method is a reference to the kind of request you are making (the verb): GET is the default
+    headers:{'Content-Type':"application/json"}, // some APIs will return an error message without this value included
+    body: loginJSON // stringify converts a JavaScript object into a json
+    }  
+
+    let httpResponse = await fetch("https://bugcatcher.coe.revaturelabs.com/16/login", config)
+
+    //This pulls the current Users name to session storage for the splash pages
+    let employeeResponse = await fetch("https://bugcatcher.coe.revaturelabs.com/16/employees")
+    let employeResponseBody = await employeeResponse.json()
+    console.log(employeResponseBody)
+    for( let object of employeResponseBody){
+        if( object.username === loginInfo.username){
+            console.log(`${object.fname} ${object.lname}`)
+            sessionStorage.setItem('name',`${object.fname} ${object.lname}`)
+            console.log(sessionStorage.name)
+        }else{
+            null
+        }
+    }
+
+    if(httpResponse.status === 200){
+        let responseBody = await httpResponse.json()
+
+        if(responseBody.role === "Tester"){
+            window.location.href = "testerPage.html"
+        }else{
+            window.location.href = "managerPage.html"
+        }
+        
+    }else{
+        let responseBody = await httpResponse.json()
+        alert(responseBody.detail)
+    }
+
+}
+
+</script>
+</html>
