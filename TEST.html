@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+>
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+<script>
+    function testPull(){
+    let defectResponse = fetch("https://bugcatcher.coe.revaturelabs.com/16/defects")
+    let defectResponseBody = defectResponse.json()
+
+    console.log(defectResponseBody)
+    }
+    testPull()
+</script>
+</html>

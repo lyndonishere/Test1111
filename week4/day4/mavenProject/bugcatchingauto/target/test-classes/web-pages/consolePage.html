@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Document</title>
+</head>
+<body>
+
+    
+</body>
+<script>
+
+async function pageLoad(){
+    
+
+    // const sessionUSER = document.getElementById()
+    // let config = {
+    // method:"GET", // method is a reference to the kind of request you are making (the verb): GET is the default
+    // headers:{'Content-Type':"application/json"}, // some APIs will return an error message without this value included
+    // body: loginJSON // stringify converts a JavaScript object into a json
+    // }
+    let httpResponse = await fetch("https://bugcatcher.coe.revaturelabs.com/16/employees")
+    let responseBody =  await httpResponse.json() 
+    for(let object of responseBody){
+    console.log(object.fname)
+    }
+}
+    pageLoad()
+    
+</script>
+</html>
