@@ -22,7 +22,7 @@ public class LoginSteps {
         //BOTH LOGIN
         @Given("the employee is on the login page")
         public void the_employee_is_on_the_login_page() {
-        TestRunner.driver.get("C:/Users/lyndo/Revature Training/Project1/bugcatchingauto/src/test/resources/web-pages/login.html");
+        TestRunner.driver.get("C:/Users/lyndo/Revature-Training/Project1/bugcatchingauto/src/test/resources/web-pages/login.html");
         }
         @When("the employee clicks on the login button")
         public void the_employee_clicks_on_the_login_button(){
@@ -64,7 +64,7 @@ public class LoginSteps {
         //MANGER CREATES DEFECT
         @Given("the manager is on the manager page")
         public void the_manager_is_on_the_manager_page() {
-            TestRunner.driver.get("C:/Users/lyndo/Revature Training/Project1/bugcatchingauto/src/test/resources/web-pages/managerPage.html");
+            TestRunner.driver.get("C:/Users/lyndo/Revature-Training/Project1/bugcatchingauto/src/test/resources/web-pages/managerPage.html");
         }
         @When("the manager enters a defect description")
         public void the_manager_enters_a_defect_description() {
@@ -90,7 +90,7 @@ public class LoginSteps {
         //TESTER REPEATS
         @Given("the tester is on the tester page")
         public void the_tester_is_on_the_tester_page() {
-            TestRunner.driver.get("C:/Users/lyndo/Revature Training/Project1/bugcatchingauto/src/test/resources/web-pages/login.html");
+            TestRunner.driver.get("C:/Users/lyndo/Revature-Training/Project1/bugcatchingauto/src/test/resources/web-pages/login.html");
             TestRunner.login.enterUsername("loron6563");
             TestRunner.login.enterPassword("password");
             TestRunner.login.clickButton();
